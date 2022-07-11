@@ -6,6 +6,8 @@ import './app.css'
 
 export default class App extends React.Component {
 
+    id = 4;
+
     state = {
         items: [
             {id:1, label: "Item 1"},
@@ -14,10 +16,18 @@ export default class App extends React.Component {
         ]
     }
 
+    onInputCommit = (message) => {
+        this.setState((state) => {
+            const items = [...state.items,
+                           {id:++this.id, label: message}]
+            return {items: items}
+        })
+    }
+
     render() { 
         return (
             <div className="todos-body"> 
-                <Header /> 
+                <Header onInputCommit={this.onInputCommit}/> 
                 <List items={this.state.items}/>
             </div>
         )
