@@ -1,0 +1,14 @@
+.todo-item-pin-button {
+    float: right;
+}
+
+
+.todo-item-remove-button {
+    float: right;
+}
+
+
+
+.todo-item-text {
+    line-height: 32px;
+}
