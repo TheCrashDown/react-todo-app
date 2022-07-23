@@ -6,10 +6,19 @@ import './app.css'
 
 export default class App extends React.Component {
 
-    id = 1;
+    id = 10;
 
     state = {
-        items: []
+        pinned_items: [
+            {id:1, label:'Pinned 1', pinned:true},
+            {id:2, label:'Pinned 2', pinned:true},
+            {id:3, label:'Pinned 3', pinned:true}
+        ],
+        items: [            
+            {id:4, label:'Simple 1', pinned:false},
+            {id:5, label:'Simple 2', pinned:false},
+            {id:6, label:'Simple 3', pinned:false}
+        ]
     }
 
     onDeleteClick = (key) => {
@@ -35,6 +44,7 @@ export default class App extends React.Component {
         return (
             <div className="todos-body"> 
                 <Header onInputCommit={this.onInputCommit}/> 
+                <List items={this.state.pinned_items}/>
                 <List items={this.state.items}/>
             </div>
         )

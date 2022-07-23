@@ -2,13 +2,25 @@
     float: right;
 }
 
-
 .todo-item-remove-button {
     float: right;
 }
 
-
-
 .todo-item-text {
     line-height: 32px;
+}
+
+.list-group-item {
+    border: 1px solid rgba(0, 0, 0, 0.164);
+}
+
+.simple {
+    background-color: rgba(241, 243, 102, 0.349);
+}
+
+.pinned {
+    background-color: rgba(129, 209, 0, 0.185);
+    border: 1px solid rgba(0, 0, 0, 0.329);
+    font-weight: 500;
+    font-size: 1.2rem;
 }
