@@ -6,20 +6,27 @@ import './app.css'
 
 export default class App extends React.Component {
 
-    id = 4;
+    id = 1;
 
     state = {
-        items: [
-            {id:1, label: "Item 1"},
-            {id:2, label: "Item 2"},
-            {id:3, label: "Item 3"}
-        ]
+        items: []
+    }
+
+    onDeleteClick = (key) => {
+        this.setState((state) => {
+            const idx_deleted = state.items.findIndex(item => item.id === key)
+            const items = [...state.items.slice(0, idx_deleted),
+                           ...state.items.slice(idx_deleted + 1)]
+            return {items: items}
+        })
     }
 
     onInputCommit = (message) => {
         this.setState((state) => {
             const items = [...state.items,
-                           {id:++this.id, label: message}]
+                           {id:++this.id, 
+                            label: message,
+                            onDeleteClick: this.onDeleteClick}]
             return {items: items}
         })
     }

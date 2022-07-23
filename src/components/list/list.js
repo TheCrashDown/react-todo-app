@@ -5,8 +5,8 @@ import './list.css'
 
 const List = ({ items }) => {
     const map = items.map((item) => {
-        const { id, label } = item
-        return <ListItem key={id} label={label} />
+        const { id, label, onDeleteClick } = item
+        return <ListItem key={id} label={label} onDeleteClick={() => onDeleteClick(id)} />
     })
     return <ul className="list-group todos-list">{ map }</ul>
 }
