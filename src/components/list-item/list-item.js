@@ -2,7 +2,7 @@ import React from "react";
 
 import './list-item.css'
 
-const ListItem = ({ label, onDeleteClick, pinned }) => {
+const ListItem = ({ label, onDeleteClick, onPinClick, pinned }) => {
 
     let background =  "list-group-item"
     let pin_icon = "bi"
@@ -22,7 +22,7 @@ const ListItem = ({ label, onDeleteClick, pinned }) => {
                 <i className="bi bi-trash"></i>
             </button>
 
-            <button type="button" className="btn btn-sm todo-item-pin-button">
+            <button type="button" className="btn btn-sm todo-item-pin-button" onClick={onPinClick}>
                 <i className={pin_icon}></i>
             </button>
         </div>

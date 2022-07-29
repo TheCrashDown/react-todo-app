@@ -30,12 +30,20 @@ export default class App extends React.Component {
         })
     }
 
+    onPinClick = (key) => {
+        this.setState((state) => {
+            const idx = state.items.findIndex(item => item.id === key)
+            console.log(idx)
+        })
+    }
+
     onInputCommit = (message) => {
         this.setState((state) => {
             const items = [...state.items,
                            {id:++this.id, 
                             label: message,
-                            onDeleteClick: this.onDeleteClick}]
+                            onDeleteClick: this.onDeleteClick,
+                            onPinClick: this.onPinClick}]
             return {items: items}
         })
     }
@@ -44,8 +52,7 @@ export default class App extends React.Component {
         return (
             <div className="todos-body"> 
                 <Header onInputCommit={this.onInputCommit}/> 
-                <List items={this.state.pinned_items}/>
-                <List items={this.state.items}/>
+                <List pinned={this.state.pinned_items} items={this.state.items}/>
             </div>
         )
         
