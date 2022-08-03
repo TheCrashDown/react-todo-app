@@ -9,31 +9,47 @@ export default class App extends React.Component {
     id = 10;
 
     state = {
-        pinned_items: [
-            {id:1, label:'Pinned 1', pinned:true},
-            {id:2, label:'Pinned 2', pinned:true},
-            {id:3, label:'Pinned 3', pinned:true}
-        ],
-        items: [            
-            {id:4, label:'Simple 1', pinned:false},
-            {id:5, label:'Simple 2', pinned:false},
-            {id:6, label:'Simple 3', pinned:false}
-        ]
+        pinned: [],
+        items: []
     }
 
     onDeleteClick = (key) => {
         this.setState((state) => {
-            const idx_deleted = state.items.findIndex(item => item.id === key)
-            const items = [...state.items.slice(0, idx_deleted),
-                           ...state.items.slice(idx_deleted + 1)]
-            return {items: items}
+            let idx_deleted = state.items.findIndex(item => item.id === key)
+            if (idx_deleted !== -1) {
+                const newItems = [...state.items.slice(0, idx_deleted),
+                    ...state.items.slice(idx_deleted + 1)]
+                return {items: newItems}
+            }
+            idx_deleted = state.pinned.findIndex(item => item.id === key)
+            const newPinned = [...state.pinned.slice(0, idx_deleted),
+                ...state.pinned.slice(idx_deleted + 1)]
+            return {pinned: newPinned}
         })
     }
 
     onPinClick = (key) => {
         this.setState((state) => {
-            const idx = state.items.findIndex(item => item.id === key)
-            console.log(idx)
+            let idx = state.items.findIndex(item => item.id === key)
+            if (idx !== -1) {
+                // pin element
+                const moved_item = state.items[idx]
+                moved_item.pinned = true
+                const newPinned = [...state.pinned,
+                                   moved_item]
+                const newItems = [...state.items.slice(0, idx),
+                                  ...state.items.slice(idx + 1)]
+                return {items: newItems, pinned: newPinned}
+            }
+            // unpin element
+            idx = state.pinned.findIndex(item => item.id === key)
+            const moved_item = state.pinned[idx]
+            moved_item.pinned = false
+            const newPinned = [...state.pinned.slice(0, idx),
+                ...state.pinned.slice(idx + 1)]
+            const newItems = [...state.items,
+                              moved_item]
+            return {items: newItems, pinned: newPinned}
         })
     }
 
@@ -52,7 +68,7 @@ export default class App extends React.Component {
         return (
             <div className="todos-body"> 
                 <Header onInputCommit={this.onInputCommit}/> 
-                <List pinned={this.state.pinned_items} items={this.state.items}/>
+                <List pinned={this.state.pinned} items={this.state.items}/>
             </div>
         )
         
